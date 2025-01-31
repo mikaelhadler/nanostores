@@ -31,7 +31,7 @@ export function TodoForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex gap-4"
+      className="flex flex-col sm:flex-row gap-3 sm:gap-4"
     >
       <Input
         value={task}
@@ -45,8 +45,8 @@ export function TodoForm() {
           setPriority(value as "low" | "medium" | "high")
         }
       >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select priority" />
+        <SelectTrigger className="w-full sm:w-[180px]">
+          <SelectValue placeholder="Selecione a prioridade" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="low">Low</SelectItem>
@@ -54,7 +54,12 @@ export function TodoForm() {
           <SelectItem value="high">High</SelectItem>
         </SelectContent>
       </Select>
-      <Button type="submit">Add</Button>
+      <Button
+        type="submit"
+        className="w-full sm:w-auto"
+      >
+        Add
+      </Button>
     </form>
   );
 }

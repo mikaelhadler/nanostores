@@ -34,7 +34,7 @@ export const columns: ColumnDef<Todo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Tarefa"
+        title="Task"
       />
     ),
     cell: ({ row }) => {
@@ -50,7 +50,7 @@ export const columns: ColumnDef<Todo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Prioridade"
+        title="Priority"
       />
     ),
     cell: ({ row }) => {

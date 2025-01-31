@@ -32,7 +32,7 @@ export function DataTableSelectedActions<TData>({
         size="sm"
         onClick={handleDelete}
       >
-        Excluir selecionados
+        Delete selected
       </Button>
       <Button
         variant="secondary"

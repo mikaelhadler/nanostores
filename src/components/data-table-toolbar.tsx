@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/data-table-view-options";
 
-import { priorities, statuses } from "./data/data";
+import { priorities } from "./data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
@@ -33,8 +33,8 @@ export function DataTableToolbar<TData>({
             column={table.getColumn("completed")}
             title="Status"
             options={[
-              { label: "Pendente", value: "false" },
-              { label: "Concluído", value: "true" },
+              { label: "Pending", value: "false" },
+              { label: "Completed", value: "true" },
             ]}
           />
         )}
@@ -51,7 +51,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Limpar
+            Clear
             <X className="ml-2 h-4 w-4" />
           </Button>
         )}
