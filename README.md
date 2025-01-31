@@ -79,12 +79,12 @@ function TodoList() {
 The project uses TypeScript for type safety:
 
 ```ts
-// Definição de tipos para Tarefas
+//  Definition of types for tasks
 type Todo = {
   id: string;
   title: string;
   description: string;
-  priority: "baixa" | "média" | "alta";
+  priority: "low" | "medium" | "high";
   completed: boolean;
 };
 ```
