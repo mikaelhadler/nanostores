@@ -1,10 +1,21 @@
 import { useState } from "react";
 import { addTodo } from "../stores/todoStore";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 export function TodoForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<"baixa" | "média" | "alta">("média");
+  const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -12,51 +23,61 @@ export function TodoForm() {
       addTodo({
         title,
         description,
-        priority: priority as "low" | "medium" | "high",
+        priority,
       });
       setTitle("");
       setDescription("");
-      setPriority("média");
+      setPriority("medium");
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="todo-form"
-    >
-      <div className="form-group">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Task title"
-          required
-        />
-      </div>
-
-      <div className="form-group">
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Task description"
-        />
-      </div>
-
-      <div className="form-group">
-        <select
-          value={priority}
-          onChange={(e) =>
-            setPriority(e.target.value as "baixa" | "média" | "alta")
-          }
+    <Card className="mb-6">
+      <CardHeader>
+        <CardTitle>Add New Task</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
         >
-          <option value="low">Low Priority</option>
-          <option value="medium">Medium Priority</option>
-          <option value="high">High Priority</option>
-        </select>
-      </div>
+          <div className="space-y-2">
+            <Input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Task title"
+              required
+            />
+          </div>
 
-      <button type="submit">Add Task</button>
-    </form>
+          <div className="space-y-2">
+            <Textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Task description"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Select
+              value={priority}
+              onValueChange={(value) => setPriority(value as typeof priority)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select priority" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="low">Low Priority</SelectItem>
+                <SelectItem value="medium">Medium Priority</SelectItem>
+                <SelectItem value="high">High Priority</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <Button type="submit">Add Task</Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
