@@ -26,7 +26,6 @@ export const todosStore = persistentAtom<Todo[]>("todos", [], {
 The store implements all CRUD operations:
 
 ```ts
-// Create
 export function addTodo(data: Omit<Todo, "id" | "completed">) {
   const newTodo: Todo = {
     ...data,
@@ -35,9 +34,9 @@ export function addTodo(data: Omit<Todo, "id" | "completed">) {
   };
   todosStore.set([...todosStore.get(), newTodo]);
 }
-// Read
+
 const todos = useStore(todosStore);
-// Update
+
 export function updateTodo(id: string, data: Partial<Omit<Todo, "id">>) {
   const todos = todosStore.get();
   const updatedTodos = todos.map((todo) =>
@@ -45,7 +44,7 @@ export function updateTodo(id: string, data: Partial<Omit<Todo, "id">>) {
   );
   todosStore.set(updatedTodos);
 }
-// Delete
+
 export function deleteTodo(id: string) {
   const todos = todosStore.get();
   const filteredTodos = todos.filter((todo) => todo.id !== id);
@@ -79,7 +78,6 @@ function TodoList() {
 The project uses TypeScript for type safety:
 
 ```ts
-//  Definition of types for tasks
 type Todo = {
   id: string;
   title: string;
