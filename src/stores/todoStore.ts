@@ -2,7 +2,7 @@ import { persistentAtom } from "@nanostores/persistent";
 
 export interface Todo {
   id: string;
-  title: string;
+  task: string;
   description: string;
   priority: "low" | "medium" | "high";
   completed: boolean;

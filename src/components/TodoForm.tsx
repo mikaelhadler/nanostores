@@ -11,20 +11,20 @@ import {
 } from "@/components/ui/select";
 
 export function TodoForm() {
-  const [title, setTitle] = useState("");
+  const [task, setTask] = useState("");
   const [priority, setPriority] = useState<"low" | "medium" | "high">("medium");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!task.trim()) return;
 
     addTodo({
-      title: title.trim(),
+      task: task.trim(),
       description: "",
       priority,
     });
 
-    setTitle("");
+    setTask("");
     setPriority("medium");
   };
 
@@ -34,8 +34,8 @@ export function TodoForm() {
       className="flex gap-4"
     >
       <Input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
         placeholder="New task..."
         className="flex-1"
       />

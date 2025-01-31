@@ -39,10 +39,10 @@ export function DataTableSelectedActions<TData>({
         size="sm"
         onClick={handleToggleComplete}
       >
-        Alternar status
+        Change status
       </Button>
       <span className="ml-2 text-sm text-muted-foreground">
-        {selectedRows.length} item(s) selecionado(s)
+        {selectedRows.length} item(s) selected
       </span>
     </div>
   );

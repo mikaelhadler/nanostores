@@ -1,8 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Todo } from "@/stores/todoStore";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
@@ -32,17 +30,17 @@ export const columns: ColumnDef<Todo>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "task",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Task"
+        title="Tarefa"
       />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex max-w-[500px] items-center">
-          <span className="truncate font-medium">{row.getValue("title")}</span>
+          <span className="truncate font-medium">{row.getValue("task")}</span>
         </div>
       );
     },
@@ -52,7 +50,7 @@ export const columns: ColumnDef<Todo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Priority"
+        title="Prioridade"
       />
     ),
     cell: ({ row }) => {
@@ -78,7 +76,7 @@ export const columns: ColumnDef<Todo>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          <span>{row.getValue("completed") ? "Concluído" : "Pendente"}</span>
+          <span>{row.getValue("completed") ? "Completed" : "Pending"}</span>
         </div>
       );
     },

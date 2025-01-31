@@ -8,16 +8,16 @@ import { cn } from "@/lib/utils";
 
 interface TodoItemProps {
   id: string;
-  title: string;
+  task: string;
   completed: boolean;
 }
 
-export function TodoItem({ id, title, completed }: TodoItemProps) {
+export function TodoItem({ id, task, completed }: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedTask, setEditedTask] = useState(task);
 
   const handleUpdate = () => {
-    updateTodo(id, editedTitle);
+    updateTodo(id, { task: editedTask });
     setIsEditing(false);
   };
 
@@ -32,8 +32,8 @@ export function TodoItem({ id, title, completed }: TodoItemProps) {
       <TableCell>
         {isEditing ? (
           <Input
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
+            value={editedTask}
+            onChange={(e) => setEditedTask(e.target.value)}
             onBlur={handleUpdate}
             onKeyDown={(e) => e.key === "Enter" && handleUpdate()}
             autoFocus
@@ -45,7 +45,7 @@ export function TodoItem({ id, title, completed }: TodoItemProps) {
             })}
             onClick={() => setIsEditing(true)}
           >
-            {title}
+            {task}
           </span>
         )}
       </TableCell>
