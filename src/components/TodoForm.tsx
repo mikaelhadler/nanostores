@@ -36,6 +36,12 @@ export function TodoForm() {
       <Input
         value={task}
         onChange={(e) => setTask(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSubmit(e);
+          }
+        }}
         placeholder="New task..."
         className="flex-1"
       />
