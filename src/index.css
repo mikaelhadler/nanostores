@@ -1,0 +1,105 @@
+:root {
+  --primary-color: #4caf50;
+  --danger-color: #f44336;
+  --priority-low: #8bc34a;
+  --priority-medium: #ffc107;
+  --priority-high: #f44336;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.todo-form {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.todo-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.todo-content {
+  flex: 1;
+}
+
+.priority-badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+}
+
+.priority-baixa .priority-badge {
+  background-color: var(--priority-low);
+}
+
+.priority-média .priority-badge {
+  background-color: var(--priority-medium);
+}
+
+.priority-alta .priority-badge {
+  background-color: var(--priority-high);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button.delete {
+  background-color: var(--danger-color);
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.todo-item.editing {
+  flex-direction: column;
+}
