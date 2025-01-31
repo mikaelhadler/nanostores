@@ -9,15 +9,15 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Gerenciador de Tarefas</h1>
+      <h1>Task Manager</h1>
 
       <TodoForm />
 
       <div className="todos-container">
-        <h2>Minhas Tarefas ({todos.length})</h2>
+        <h2>My Tasks ({todos.length})</h2>
 
         {todos.length === 0 ? (
-          <p className="empty-state">Nenhuma tarefa cadastrada</p>
+          <p className="empty-state">No tasks registered</p>
         ) : (
           todos.map((todo) => (
             <TodoItem

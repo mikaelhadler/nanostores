@@ -1,50 +1,139 @@
-# React + TypeScript + Vite
+# Nanostores POC - Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A proof of concept demonstrating Nanostores with React for global and persistent state management.
 
-Currently, two official plugins are available:
+## Demonstrated Concepts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Persistent Store
 
-## Expanding the ESLint configuration
+Nanostores enables creating persistent stores that automatically save data to localStorage:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```ts
+import { persistentAtom } from "@nanostores/persistent";
+export const todosStore = persistentAtom<Todo[]>("todos", [], {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+});
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- `persistentAtom`: Creates an atomic store that persists data
+- First parameter: localStorage key
+- Second parameter: initial value
+- Third parameter: encode/decode functions
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 2. CRUD Operations
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+The store implements all CRUD operations:
+
+```ts
+// Create
+export function addTodo(data: Omit<Todo, "id" | "completed">) {
+  const newTodo: Todo = {
+    ...data,
+    id: crypto.randomUUID(),
+    completed: false,
+  };
+  todosStore.set([...todosStore.get(), newTodo]);
+}
+// Read
+const todos = useStore(todosStore);
+// Update
+export function updateTodo(id: string, data: Partial<Omit<Todo, "id">>) {
+  const todos = todosStore.get();
+  const updatedTodos = todos.map((todo) =>
+    todo.id === id ? { ...todo, ...data } : todo
+  );
+  todosStore.set(updatedTodos);
+}
+// Delete
+export function deleteTodo(id: string) {
+  const todos = todosStore.get();
+  const filteredTodos = todos.filter((todo) => todo.id !== id);
+  todosStore.set(filteredTodos);
+}
 ```
+
+### 3. React Integration
+
+Nanostores integrates easily with React using the `useStore` hook:
+
+```tsx
+import { useStore } from "@nanostores/react";
+function TodoList() {
+  const todos = useStore(todosStore);
+  return (
+    <div>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          {...todo}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+### 4. Strong Typing
+
+The project uses TypeScript for type safety:
+
+```ts
+// Definição de tipos para Tarefas
+type Todo = {
+  id: string;
+  title: string;
+  description: string;
+  priority: "baixa" | "média" | "alta";
+  completed: boolean;
+};
+```
+
+## Nanostores Features Used
+
+1. `persistentAtom`: For persistent store creation
+2. `useStore`: Hook to connect store to React
+3. `store.get()`: Gets current store value
+4. `store.set()`: Updates store value
+5. Type safety with TypeScript
+
+## Project Structure
+
+```
+src/
+├── App.tsx
+├── components/
+│ ├── TodoForm.tsx
+│ ├── TodoItem.tsx
+├── stores/
+│ ├── todoStore.ts
+```
+
+## How to Run
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Run the project:
+
+```bash
+npm run dev
+```
+
+## Nanostores Advantages
+
+1. **Simplicity**: Minimalist, direct API
+2. **Performance**: Optimized for efficient updates
+3. **Persistence**: Native localStorage support
+4. **Type Safety**: Excellent TypeScript support
+5. **Size**: Very small bundle size (~1KB)
+
+## Usage Considerations
+
+- Ideal for applications needing simple global state
+- Great for cases requiring data persistence
+- Lightweight Redux/MobX alternative
+- Works well with SSR (Server Side Rendering)

@@ -4,7 +4,7 @@ export interface Todo {
   id: string;
   title: string;
   description: string;
-  priority: "baixa" | "média" | "alta";
+  priority: "low" | "medium" | "high";
   completed: boolean;
 }
 

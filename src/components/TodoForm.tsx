@@ -9,7 +9,11 @@ export function TodoForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title.trim()) {
-      addTodo({ title, description, priority });
+      addTodo({
+        title,
+        description,
+        priority: priority as "low" | "medium" | "high",
+      });
       setTitle("");
       setDescription("");
       setPriority("média");
@@ -26,7 +30,7 @@ export function TodoForm() {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Título da tarefa"
+          placeholder="Task title"
           required
         />
       </div>
@@ -35,7 +39,7 @@ export function TodoForm() {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Descrição"
+          placeholder="Task description"
         />
       </div>
 
@@ -46,13 +50,13 @@ export function TodoForm() {
             setPriority(e.target.value as "baixa" | "média" | "alta")
           }
         >
-          <option value="baixa">Baixa Prioridade</option>
-          <option value="média">Média Prioridade</option>
-          <option value="alta">Alta Prioridade</option>
+          <option value="low">Low Priority</option>
+          <option value="medium">Medium Priority</option>
+          <option value="high">High Priority</option>
         </select>
       </div>
 
-      <button type="submit">Adicionar Tarefa</button>
+      <button type="submit">Add Task</button>
     </form>
   );
 }

@@ -5,7 +5,7 @@ interface TodoItemProps {
   id: string;
   title: string;
   description: string;
-  priority: "baixa" | "média" | "alta";
+  priority: "low" | "medium" | "high";
   completed: boolean;
 }
 
@@ -25,7 +25,6 @@ export function TodoItem({
 
   const handleUpdate = () => {
     if (editData.title.trim()) {
-      // Validação básica
       updateTodo(id, {
         title: editData.title,
         description: editData.description,
@@ -56,17 +55,17 @@ export function TodoItem({
           onChange={(e) =>
             setEditData((prev) => ({
               ...prev,
-              priority: e.target.value as "baixa" | "média" | "alta",
+              priority: e.target.value as "low" | "medium" | "high",
             }))
           }
         >
-          <option value="baixa">Baixa</option>
-          <option value="média">Média</option>
-          <option value="alta">Alta</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
         <div className="actions">
-          <button onClick={handleUpdate}>Salvar</button>
-          <button onClick={() => setIsEditing(false)}>Cancelar</button>
+          <button onClick={handleUpdate}>Save</button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
         </div>
       </div>
     );
