@@ -95,7 +95,7 @@ export function DataTable<T extends { id: string }>({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <Input
-          placeholder="Filtrar..."
+          placeholder="Filter..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="max-w-sm"
